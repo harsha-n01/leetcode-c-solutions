@@ -1,26 +1,36 @@
-int main()
-{
-    char str[100];
-    char ch;
-    int words;
+#include <stdio.h>
 
-    // Read string (including spaces)
-    printf("Enter a string: ");
-    scanf(" %c", str);
+void shortName(char name[]) {
+    int i, lastStart = 0;
 
-    // Read character to find frequency
-    printf("Enter a character to count frequency: ");
-    scanf(" %c", &ch);
+    for (i = 0; name[i] != '\0'; i++) {
+        if (name[i] == ' ') {
+            lastStart = i + 1;
+        }
+    }
 
-    // Function calls (each in separate line)
-    printf("Frequency of '%c' = %d\n", ch, countChar(str, ch));
+    if (lastStart > 0) {
+        printf("%c. ", name[0]);
+    }
 
-    words = countWords(str);
-    printf("Number of words = %d\n", words);
+    for (i = 1; i < lastStart; i++) {
+        if (name[i] == ' ' && name[i + 1] != ' ') {
+            printf("%c. ", name[i + 1]);
+        }
+    }
 
-    printf("Alphabet frequencies:\n");
-    printAlphabetFrequency(str);
+    for (i = lastStart; name[i] != '\0'; i++) {
+        printf("%c", name[i]);
+    }
+}
+
+int main() {
+    char name[100];
+
+    printf("Enter full name: ");
+    gets(name);   
+
+    shortName(name);   
 
     return 0;
 }
-
